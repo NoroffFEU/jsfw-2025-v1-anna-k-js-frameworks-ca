@@ -27,7 +27,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
     <button
       type="button"
       onClick={handleAddToCart}
-      className="w-full sm:w-auto rounded-lg bg-black text-white px-5 py-3 font-semibold hover:bg-black/90 transition"
+      className="w-full sm:w-auto rounded-lg bg-black text-white px-5 py-3 font-semibold transition hover:bg-black/85 active:scale-95 focus:outline-none focus:ring-2 focus:ring-black/30"
     >
       Add to Cart
     </button>
