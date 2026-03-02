@@ -1,9 +1,12 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import Container from '@/components/Layout/Container'
+import Link from "next/link";
+import Container from "@/components/Layout/Container";
+import { useCart } from "@/context/CartContext";
 
 export default function Header() {
+  const { state } = useCart();
+  const cartCount = state.items.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <header className="bg-white border-b">
       <Container className="py-4 flex items-center justify-between">
@@ -19,7 +22,7 @@ export default function Header() {
           <Link href="/cart" className="hover:text-blue-600">
             Cart
             <span className="ml-2 inline-flex items-center justify-center rounded-full bg-gray-100 px-2 py-0.5 text-xs">
-              0
+              {cartCount}
             </span>
           </Link>
 
@@ -29,5 +32,5 @@ export default function Header() {
         </nav>
       </Container>
     </header>
-  )
+  );
 }
