@@ -1,6 +1,7 @@
 import { getOnlineShopProducts } from '@/lib/api'
 import type { ApiListResponse, Product } from '@/types/onlineShop'
 import ProductCard from '@/components/ProductCard/ProductCard'
+import SearchBar from '@/components/SearchBar/SearchBar'
 
 export default async function HomePage() {
   try{
@@ -11,6 +12,7 @@ export default async function HomePage() {
     <main className="max-w-6xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold">Online Shop</h1>
       <p className="mt-2 text-gray-600">Browse products</p>
+      <SearchBar products={products} />
        <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
