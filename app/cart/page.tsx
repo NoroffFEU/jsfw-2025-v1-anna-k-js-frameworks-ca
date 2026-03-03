@@ -1,28 +1,33 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { useCart } from '@/context/CartContext'
-import { formatCurrency } from '@/lib/formatCurrency'
+import Image from "next/image";
+import Link from "next/link";
+import { useCart } from "@/context/CartContext";
+import { formatCurrency } from "@/lib/formatCurrency";
+import { useToast } from "@/context/ToastContext";
 
 export default function CartPage() {
-  const { state, dispatch } = useCart()
+  const { state, dispatch } = useCart();
+  const { showToast } = useToast();
 
   const total = state.items.reduce(
     (sum, item) => sum + item.discountedPrice * item.quantity,
-    0
-  )
+    0,
+  );
 
   if (state.items.length === 0) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
         <h1 className="text-2xl font-bold">Shopping Cart</h1>
         <p className="mt-2 text-gray-600">Your cart is currently empty.</p>
-        <Link href="/" className="mt-6 inline-block text-blue-600 hover:underline">
+        <Link
+          href="/"
+          className="mt-6 inline-block text-blue-600 hover:underline"
+        >
           Continue shopping →
         </Link>
       </main>
-    )
+    );
   }
 
   return (
@@ -32,10 +37,13 @@ export default function CartPage() {
       <div className="mt-8 grid gap-8 lg:grid-cols-3">
         <section className="lg:col-span-2 space-y-4">
           {state.items.map((item) => (
-            <div key={item.id} className="flex gap-4 rounded-xl border bg-white p-4">
+            <div
+              key={item.id}
+              className="flex gap-4 rounded-xl border bg-white p-4"
+            >
               <div className="relative h-24 w-24 overflow-hidden rounded-lg bg-gray-100 border">
                 <Image
-                  src={item.image?.url || '/placeholder.png'}
+                  src={item.image?.url || "/placeholder.png"}
                   alt={item.image?.alt || item.title}
                   fill
                   className="object-cover"
@@ -44,7 +52,10 @@ export default function CartPage() {
               </div>
 
               <div className="flex-1">
-                <Link href={`/product/${item.id}`} className="font-semibold hover:underline">
+                <Link
+                  href={`/product/${item.id}`}
+                  className="font-semibold hover:underline"
+                >
                   {item.title}
                 </Link>
 
@@ -57,7 +68,7 @@ export default function CartPage() {
                     type="button"
                     onClick={() =>
                       dispatch({
-                        type: 'UPDATE_QUANTITY',
+                        type: "UPDATE_QUANTITY",
                         payload: { id: item.id, quantity: item.quantity - 1 },
                       })
                     }
@@ -73,7 +84,7 @@ export default function CartPage() {
                     type="button"
                     onClick={() =>
                       dispatch({
-                        type: 'UPDATE_QUANTITY',
+                        type: "UPDATE_QUANTITY",
                         payload: { id: item.id, quantity: item.quantity + 1 },
                       })
                     }
@@ -85,7 +96,13 @@ export default function CartPage() {
 
                   <button
                     type="button"
-                    onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: { id: item.id } })}
+                    onClick={() => {
+                      dispatch({
+                        type: "REMOVE_ITEM",
+                        payload: { id: item.id },
+                      });
+                      showToast("Item removed", "info");
+                    }}
                     className="ml-4 text-sm text-red-600 hover:text-red-700 hover:underline transition"
                   >
                     Remove
@@ -120,5 +137,5 @@ export default function CartPage() {
         </aside>
       </div>
     </main>
-  )
+  );
 }

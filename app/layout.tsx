@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import { CartProvider } from "@/context/CartContext";
+import { ToastProvider } from '@/context/ToastContext'
+import ToastViewport from '@/components/ToastViewport/ToastViewport'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,11 +30,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-50 text-gray-900">
+        <ToastProvider>
         <CartProvider>
         <Header />
         {children}
         <Footer />
+        <ToastViewport />
         </CartProvider>
+        </ToastProvider>
       </body>
     </html>
   );
