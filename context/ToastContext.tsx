@@ -18,7 +18,7 @@ type ToastContextType = {
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 function generateId(): string {
-  return crypto.randomUUID();
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}`
 }
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
