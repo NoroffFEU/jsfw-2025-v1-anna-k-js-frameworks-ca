@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useMemo, useState } from "react"
-import type { Product } from "@/types/onlineShop"
-import SearchBar from "@/components/SearchBar/SearchBar"
-import ProductCard from "@/components/ProductCard/ProductCard"
+import { useMemo, useState } from "react";
+import type { Product } from "@/types/onlineShop";
+import SearchBar from "@/components/SearchBar/SearchBar";
+import ProductCard from "@/components/ProductCard/ProductCard";
 
 type SortOption =
   | "default"
@@ -11,42 +11,46 @@ type SortOption =
   | "price-desc"
   | "rating-desc"
   | "discount-desc"
-  | "title-asc"
+  | "title-asc";
+
+  
 
 function getEffectivePrice(product: Product) {
-  return product.discountedPrice ?? product.price
+  return product.discountedPrice ?? product.price;
 }
 
 function getDiscountPercent(product: Product) {
-  const original = product.price
-  const discounted = product.discountedPrice ?? product.price
-  if (original <= 0) return 0
-  const diff = original - discounted
-  if (diff <= 0) return 0
-  return (diff / original) * 100
+  const original = product.price;
+  const discounted = product.discountedPrice ?? product.price;
+  if (original <= 0) return 0;
+  const diff = original - discounted;
+  if (diff <= 0) return 0;
+  return (diff / original) * 100;
 }
 
 export default function ProductGrid({ products }: { products: Product[] }) {
-  const [sort, setSort] = useState<SortOption>("default")
+  const [sort, setSort] = useState<SortOption>("default");
 
   const sortedProducts = useMemo(() => {
-    const list = [...products]
+    const list = [...products];
 
     switch (sort) {
       case "price-asc":
-        return list.sort((a, b) => getEffectivePrice(a) - getEffectivePrice(b))
+        return list.sort((a, b) => getEffectivePrice(a) - getEffectivePrice(b));
       case "price-desc":
-        return list.sort((a, b) => getEffectivePrice(b) - getEffectivePrice(a))
+        return list.sort((a, b) => getEffectivePrice(b) - getEffectivePrice(a));
       case "rating-desc":
-        return list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+        return list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
       case "discount-desc":
-        return list.sort((a, b) => getDiscountPercent(b) - getDiscountPercent(a))
+        return list.sort(
+          (a, b) => getDiscountPercent(b) - getDiscountPercent(a),
+        );
       case "title-asc":
-        return list.sort((a, b) => a.title.localeCompare(b.title))
+        return list.sort((a, b) => a.title.localeCompare(b.title));
       default:
-        return list
+        return list;
     }
-  }, [products, sort])
+  }, [products, sort]);
 
   return (
     <>
@@ -77,12 +81,14 @@ export default function ProductGrid({ products }: { products: Product[] }) {
 
       <section
         id="products"
-        className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-10"
       >
-        {sortedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        {sortedProducts.map((product, index) => (
+          <div key={product.id} className={index === 0 ? "lg:col-span-2" : ""}>
+            <ProductCard product={product} featured={index === 0}/>
+          </div>
         ))}
       </section>
     </>
-  )
+  );
 }

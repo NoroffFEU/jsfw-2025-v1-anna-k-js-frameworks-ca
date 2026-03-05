@@ -18,14 +18,19 @@ export default function CartPage() {
   if (state.items.length === 0) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold">Shopping Cart</h1>
-        <p className="mt-2 text-gray-600">Your cart is currently empty.</p>
-        <Link
-          href="/"
-          className="mt-6 inline-block text-blue-600 hover:underline"
-        >
-          Continue shopping →
+        <section className="section-bg rounded-2xl p-10 sm:p-12 max-w-2xl mx-auto">
+        <div className="accent-bg h-1 w-14 rounded-full mb-6" />
+
+        <h1 className="text-3xl font-bold">Shopping Cart</h1>
+
+        <p className="mt-3 text-black/70 text-lg">
+          Your cart is currently empty. 
+        </p>
+
+        <Link href="/#products" className="btn-primary inline-flex mt-6">
+          Continue shopping
         </Link>
+      </section>
       </main>
     );
   }

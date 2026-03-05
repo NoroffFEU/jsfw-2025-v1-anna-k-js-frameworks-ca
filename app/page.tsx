@@ -10,6 +10,8 @@ export default async function HomePage() {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
         <section className="section-bg rounded-2xl p-8 sm:p-12 mb-10">
+          <span className="text-sm text-black/60 font-medium">Online Shop</span>
+          <div className="accent-bg h-1 w-14 rounded-full mb-6"></div>
           <h1 className="text-3xl sm:text-4xl font-bold">
             Discover everyday essentials
           </h1>
@@ -25,7 +27,7 @@ export default async function HomePage() {
             </a>
           </div>
         </section>
-        
+
         <ProductGrid products={products} />
       </main>
     );

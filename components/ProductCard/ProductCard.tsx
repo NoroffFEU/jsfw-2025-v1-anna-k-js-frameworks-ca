@@ -1,16 +1,23 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import type { Product } from '@/types/onlineShop'
-import { formatCurrency } from '@/lib/formatCurrency'
-import { calcDiscountPercent } from '@/lib/calcDiscountPercent'
+import Image from "next/image";
+import Link from "next/link";
+import type { Product } from "@/types/onlineShop";
+import { formatCurrency } from "@/lib/formatCurrency";
+import { calcDiscountPercent } from "@/lib/calcDiscountPercent";
 
 type ProductCardProps = {
-  product: Product
-}
+  product: Product;
+  featured?: boolean;
+};
 
-export default function ProductCard({ product }: ProductCardProps) {
-  const hasDiscount = product.discountedPrice < product.price
-  const discountPercent = calcDiscountPercent(product.price, product.discountedPrice)
+export default function ProductCard({
+  product,
+  featured = false
+}: ProductCardProps) {
+  const hasDiscount = product.discountedPrice < product.price;
+  const discountPercent = calcDiscountPercent(
+    product.price,
+    product.discountedPrice,
+  );
 
   return (
     <Link
@@ -18,7 +25,11 @@ export default function ProductCard({ product }: ProductCardProps) {
       className="group block rounded-xl bg-white shadow-sm border border-black/10 overflow-hidden transition hover:-translate-y-1 hover:shadow-lg"
       aria-label={`View details for ${product.title}`}
     >
-      <div className="relative aspect-square bg-gray-100">
+      <div
+        className={`relative ${
+          featured ? "aspect-16/10" : "aspect-3/4"
+        } bg-gray-100`}
+      >
         {hasDiscount && discountPercent > 0 && (
           <div className="absolute left-3 top-3 z-10 rounded-full accent-bg text-white text-xs px-3 py-1">
             -{discountPercent}%
@@ -26,7 +37,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
 
         <Image
-          src={product.image?.url || '/placeholder.png'}
+          src={product.image?.url || "/placeholder.png"}
           alt={product.image?.alt || product.title}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
@@ -35,10 +46,14 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
 
       <div className="p-4">
-        <h2 className="font-semibold leading-snug line-clamp-2">{product.title}</h2>
+        <h2 className="font-semibold leading-snug line-clamp-2">
+          {product.title}
+        </h2>
 
         <div className="mt-2 flex items-baseline gap-2">
-          <span className="text-lg font-semibold">{formatCurrency(product.discountedPrice)}</span>
+          <span className="text-lg font-semibold">
+            {formatCurrency(product.discountedPrice)}
+          </span>
 
           {hasDiscount && (
             <span className="text-sm text-gray-500 line-through">
@@ -48,9 +63,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         <div className="mt-2 text-sm text-gray-600">
-          Rating: <span className="font-medium">{product.rating.toFixed(1)}</span>
+          Rating:{" "}
+          <span className="font-medium">{product.rating.toFixed(1)}</span>
         </div>
       </div>
     </Link>
-  )
+  );
 }
