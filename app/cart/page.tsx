@@ -130,7 +130,7 @@ export default function CartPage() {
 
           <Link
             href="/checkout-success"
-            className="mt-6 block text-center rounded-lg bg-black text-white px-5 py-3 font-semibold hover:bg-black/90 transition"
+            className="btn-primary mt-4 inline-flex items-center justify-center"
           >
             Checkout
           </Link>

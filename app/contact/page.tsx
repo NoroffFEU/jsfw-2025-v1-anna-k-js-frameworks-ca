@@ -182,10 +182,7 @@ export default function ContactPage() {
           )}
         </div>
 
-        <button
-          type="submit"
-          className="rounded-lg bg-black text-white px-5 py-3 font-semibold transition hover:bg-black/90 active:scale-95 focus:outline-none focus:ring-2 focus:ring-black/30"
-        >
+        <button type="submit" className="btn-primary">
           Send message
         </button>
       </form>

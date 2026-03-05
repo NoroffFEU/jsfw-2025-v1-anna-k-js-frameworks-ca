@@ -4,7 +4,7 @@
   --background: #efefe5;
   --foreground: #2c2a27;
   --section: #dfddce;
-  --accent: #792e17;
+  --accent: #135534;
 }
 
 @theme inline {
@@ -52,4 +52,21 @@ body {
 .nav-link:hover,
 .nav-link.is-active {
   background: var(--background);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
 }

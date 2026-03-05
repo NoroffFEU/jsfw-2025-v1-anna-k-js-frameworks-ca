@@ -15,12 +15,12 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/product/${product.id}`}
-      className="group block rounded-xl bg-white shadow-sm border overflow-hidden hover:shadow-md transition"
+      className="group block rounded-xl bg-white shadow-sm border border-black/10 overflow-hidden transition hover:-translate-y-1 hover:shadow-lg"
       aria-label={`View details for ${product.title}`}
     >
       <div className="relative aspect-square bg-gray-100">
         {hasDiscount && discountPercent > 0 && (
-          <div className="absolute left-3 top-3 z-10 rounded-full bg-black/80 text-white text-xs px-3 py-1">
+          <div className="absolute left-3 top-3 z-10 rounded-full accent-bg text-white text-xs px-3 py-1">
             -{discountPercent}%
           </div>
         )}
@@ -29,7 +29,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           src={product.image?.url || '/placeholder.png'}
           alt={product.image?.alt || product.title}
           fill
-          className="object-cover group-hover:scale-[1.02] transition"
+          className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
           sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
         />
       </div>
@@ -38,7 +38,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <h2 className="font-semibold leading-snug line-clamp-2">{product.title}</h2>
 
         <div className="mt-2 flex items-baseline gap-2">
-          <span className="font-bold">{formatCurrency(product.discountedPrice)}</span>
+          <span className="text-lg font-semibold">{formatCurrency(product.discountedPrice)}</span>
 
           {hasDiscount && (
             <span className="text-sm text-gray-500 line-through">

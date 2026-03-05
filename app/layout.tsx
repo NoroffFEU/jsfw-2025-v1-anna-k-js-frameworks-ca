@@ -29,11 +29,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-background text-text">
+      <body className="bg-background text-text min-h-screen flex flex-col">
         <ToastProvider>
           <CartProvider>
             <Header />
-            {children}
+            <div className="flex-1">{children}</div>
             <Footer />
             <ToastViewport />
           </CartProvider>
