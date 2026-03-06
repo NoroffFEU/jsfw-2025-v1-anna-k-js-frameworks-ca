@@ -44,9 +44,9 @@ export default function CartPage() {
           {state.items.map((item) => (
             <div
               key={item.id}
-              className="flex gap-4 rounded-xl border bg-white p-4"
+              className="flex gap-4 rounded-xl border bg-white p-4 shadow-sm sm:flex-row"
             >
-              <div className="relative h-24 w-24 overflow-hidden rounded-lg bg-gray-100 border">
+              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg bg-gray-100">
                 <Image
                   src={item.image?.url || "/placeholder.png"}
                   alt={item.image?.alt || item.title}
@@ -56,7 +56,7 @@ export default function CartPage() {
                 />
               </div>
 
-              <div className="flex-1">
+              <div className="min-w-0 flex-1">
                 <Link
                   href={`/product/${item.id}`}
                   className="font-semibold hover:underline"
@@ -68,7 +68,7 @@ export default function CartPage() {
                   Price: {formatCurrency(item.discountedPrice)}
                 </p>
 
-                <div className="mt-3 flex items-center gap-3">
+                <div className="mt-3 flex flex-wrap items-center gap-3">
                   <button
                     type="button"
                     onClick={() =>
@@ -115,7 +115,7 @@ export default function CartPage() {
                 </div>
               </div>
 
-              <div className="text-right">
+              <div className="pt-2 sm:pt-0 sm:text-right">
                 <p className="font-semibold">
                   {formatCurrency(item.discountedPrice * item.quantity)}
                 </p>
