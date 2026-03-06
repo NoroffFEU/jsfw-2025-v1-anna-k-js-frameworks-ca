@@ -30,7 +30,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
     <button
       type="button"
       onClick={handleAddToCart}
-      className="btn-primary"
+      className="btn-primary cursor-pointer"
     >
       Add to Cart
     </button>

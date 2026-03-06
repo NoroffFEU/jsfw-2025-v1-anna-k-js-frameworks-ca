@@ -1,27 +1,40 @@
-import Image from 'next/image'
-import { notFound } from 'next/navigation'
-import { getOnlineShopProductById } from '@/lib/api'
-import { formatCurrency } from '@/lib/formatCurrency'
-import { calcDiscountPercent } from '@/lib/calcDiscountPercent'
-import type { ApiItemResponse, Product } from '@/types/onlineShop'
-import AddToCartButton from '@/components/AddToCartButton/AddToCartButton'
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import { getOnlineShopProductById } from "@/lib/api";
+import { formatCurrency } from "@/lib/formatCurrency";
+import { calcDiscountPercent } from "@/lib/calcDiscountPercent";
+import type { ApiItemResponse, Product } from "@/types/onlineShop";
+import AddToCartButton from "@/components/AddToCartButton/AddToCartButton";
+import Link from "next/link";
 
 type ProductDetailsPageProps = {
-  params: Promise<{ id: string }>
-}
+  params: Promise<{ id: string }>;
+};
 
-export default async function ProductDetailsPage({ params }: ProductDetailsPageProps) {
-  try{
-  const { id } = await params
+export default async function ProductDetailsPage({
+  params,
+}: ProductDetailsPageProps) {
+  try {
+    const { id } = await params;
 
-  const response = await getOnlineShopProductById<ApiItemResponse<Product>>(id)
-  const product = response.data
+    const response =
+      await getOnlineShopProductById<ApiItemResponse<Product>>(id);
+    const product = response.data;
 
-    const hasDiscount = product.discountedPrice < product.price
-    const discountPercent = calcDiscountPercent(product.price, product.discountedPrice)
+    const hasDiscount = product.discountedPrice < product.price;
+    const discountPercent = calcDiscountPercent(
+      product.price,
+      product.discountedPrice,
+    );
 
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
+        <Link
+          href="/#products"
+          className="inline-block mb-6 text-sm text-black/70 hover:text-black transition"
+        >
+          ← Back to products
+        </Link>
         <div className="grid gap-10 lg:grid-cols-2">
           <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100 border">
             {hasDiscount && discountPercent > 0 && (
@@ -31,7 +44,7 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
             )}
 
             <Image
-              src={product.image?.url || '/placeholder.png'}
+              src={product.image?.url || "/placeholder.png"}
               alt={product.image?.alt || product.title}
               fill
               className="object-cover"
@@ -55,10 +68,13 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
             </div>
 
             <p className="mt-2 text-sm text-gray-600">
-              Rating: <span className="font-medium">{product.rating.toFixed(1)}</span>
+              Rating:{" "}
+              <span className="font-medium">{product.rating.toFixed(1)}</span>
             </p>
 
-            <p className="mt-6 text-gray-700 leading-relaxed">{product.description}</p>
+            <p className="mt-6 text-gray-700 leading-relaxed">
+              {product.description}
+            </p>
 
             <div className="mt-6">
               {}
@@ -86,10 +102,15 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
                 <h2 className="font-semibold">Reviews</h2>
                 <ul className="mt-3 space-y-3">
                   {product.reviews.map((review) => (
-                    <li key={review.id} className="rounded-xl border bg-white p-4">
+                    <li
+                      key={review.id}
+                      className="rounded-xl border bg-white p-4"
+                    >
                       <div className="flex items-center justify-between">
                         <p className="font-medium">{review.username}</p>
-                        <p className="text-sm text-gray-600">Rating: {review.rating}</p>
+                        <p className="text-sm text-gray-600">
+                          Rating: {review.rating}
+                        </p>
                       </div>
                       <p className="mt-2 text-gray-700">{review.description}</p>
                     </li>
@@ -100,8 +121,8 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
           </div>
         </div>
       </main>
-    )
+    );
   } catch (error) {
-    notFound()
+    notFound();
   }
 }

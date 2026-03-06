@@ -42,87 +42,91 @@ export default function CartPage() {
       <div className="mt-8 grid gap-8 lg:grid-cols-3">
         <section className="lg:col-span-2 space-y-4">
           {state.items.map((item) => (
-            <div
-              key={item.id}
-              className="flex gap-4 rounded-xl border bg-white p-4 shadow-sm sm:flex-row"
-            >
-              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg bg-gray-100">
-                <Image
-                  src={item.image?.url || "/placeholder.png"}
-                  alt={item.image?.alt || item.title}
-                  fill
-                  className="object-cover"
-                  sizes="96px"
-                />
-              </div>
+  <div
+    key={item.id}
+    className="flex gap-4 rounded-xl bg-white p-4 shadow-sm"
+  >
+    <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg bg-gray-100">
+      <Image
+        src={item.image?.url || "/placeholder.png"}
+        alt={item.image?.alt || item.title}
+        fill
+        className="object-cover"
+        sizes="96px"
+      />
+    </div>
 
-              <div className="min-w-0 flex-1">
-                <Link
-                  href={`/product/${item.id}`}
-                  className="font-semibold hover:underline"
-                >
-                  {item.title}
-                </Link>
+    <div className="min-w-0 flex-1">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <Link
+            href={`/product/${item.id}`}
+            className="font-semibold hover:underline"
+          >
+            {item.title}
+          </Link>
 
-                <p className="mt-1 text-sm text-gray-600">
-                  Price: {formatCurrency(item.discountedPrice)}
-                </p>
+          <p className="mt-1 text-sm text-gray-600">
+            Price: {formatCurrency(item.discountedPrice)}
+          </p>
+        </div>
 
-                <div className="mt-3 flex flex-wrap items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      dispatch({
-                        type: "UPDATE_QUANTITY",
-                        payload: { id: item.id, quantity: item.quantity - 1 },
-                      })
-                    }
-                    className="h-9 w-9 rounded-lg border transition hover:bg-gray-100 active:scale-95 active:bg-gray-200"
-                    aria-label="Decrease quantity"
-                  >
-                    -
-                  </button>
+        <div className="text-right shrink-0">
+          <p className="font-semibold">
+            {formatCurrency(item.discountedPrice * item.quantity)}
+          </p>
+          <p className="mt-1 text-xs text-gray-500">Subtotal</p>
+        </div>
+      </div>
 
-                  <span className="min-w-8 text-center">{item.quantity}</span>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={() =>
+            dispatch({
+              type: "UPDATE_QUANTITY",
+              payload: { id: item.id, quantity: item.quantity - 1 },
+            })
+          }
+          className="h-9 w-9 rounded-lg border transition hover:bg-gray-100 active:scale-95 active:bg-gray-200"
+          aria-label="Decrease quantity"
+        >
+          -
+        </button>
 
-                  <button
-                    type="button"
-                    onClick={() =>
-                      dispatch({
-                        type: "UPDATE_QUANTITY",
-                        payload: { id: item.id, quantity: item.quantity + 1 },
-                      })
-                    }
-                    className="h-9 w-9 rounded-lg border transition hover:bg-gray-100 active:scale-95 active:bg-gray-200"
-                    aria-label="Increase quantity"
-                  >
-                    +
-                  </button>
+        <span className="min-w-6 text-center">{item.quantity}</span>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      dispatch({
-                        type: "REMOVE_ITEM",
-                        payload: { id: item.id },
-                      });
-                      showToast("Item removed", "info");
-                    }}
-                    className="ml-4 text-sm text-red-600 hover:text-red-700 hover:underline transition"
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
+        <button
+          type="button"
+          onClick={() =>
+            dispatch({
+              type: "UPDATE_QUANTITY",
+              payload: { id: item.id, quantity: item.quantity + 1 },
+            })
+          }
+          className="h-9 w-9 rounded-lg border transition hover:bg-gray-100 active:scale-95 active:bg-gray-200"
+          aria-label="Increase quantity"
+        >
+          +
+        </button>
 
-              <div className="pt-2 sm:pt-0 sm:text-right">
-                <p className="font-semibold">
-                  {formatCurrency(item.discountedPrice * item.quantity)}
-                </p>
-                <p className="text-xs text-gray-500 mt-1">Subtotal</p>
-              </div>
-            </div>
-          ))}
+        <button
+          type="button"
+          onClick={() => {
+            dispatch({
+              type: "REMOVE_ITEM",
+              payload: { id: item.id },
+            });
+            showToast("Item removed", "info");
+          }}
+          className="ml-auto text-sm text-red-600 hover:text-red-700 hover:underline transition"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+))}
         </section>
 
         <aside className="rounded-xl border bg-white p-5 h-fit">

@@ -182,7 +182,7 @@ export default function ContactPage() {
           )}
         </div>
 
-        <button type="submit" className="btn-primary">
+        <button type="submit" className="btn-primary cursor-pointer">
           Send message
         </button>
       </form>
