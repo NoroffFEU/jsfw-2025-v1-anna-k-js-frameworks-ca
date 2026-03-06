@@ -36,9 +36,9 @@ export default async function ProductDetailsPage({
           ← Back to products
         </Link>
         <div className="grid gap-10 lg:grid-cols-2">
-          <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100 border">
+          <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100 shadow-sm border border-black/10">
             {hasDiscount && discountPercent > 0 && (
-              <div className="absolute left-3 top-3 z-10 rounded-full bg-black/80 text-white text-xs px-3 py-1">
+              <div className="absolute left-3 top-3 z-10 rounded-full accent-bg text-white text-xs px-3 py-1">
                 -{discountPercent}%
               </div>
             )}
