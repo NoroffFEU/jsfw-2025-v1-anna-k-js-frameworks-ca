@@ -19,6 +19,7 @@ export default async function ProductDetailsPage({
 
     const response =
       await getOnlineShopProductById<ApiItemResponse<Product>>(id);
+    
     const product = response.data;
 
     const hasDiscount = product.discountedPrice < product.price;

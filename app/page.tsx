@@ -5,6 +5,7 @@ import ProductGrid from "@/components/ProductGrid/ProductGrid";
 export default async function HomePage() {
   try {
     const response = await getOnlineShopProducts<ApiListResponse<Product>>();
+    
     const products = response.data;
 
     return (
