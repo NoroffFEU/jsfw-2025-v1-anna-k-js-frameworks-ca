@@ -9,7 +9,17 @@ The site fetches products from an API, allows users to browse items, search and 
 # Live Site
 
 Netlify deployment:  
-[(https://jsframework-anna.netlify.app/)]
+[Live Site](https://jsframework-anna.netlify.app/)
+
+## Improvements Made for Portfolio
+
+Before adding the project to my portfolio, I revisited the application and made several improvements:
+
+- Removed an unused dark mode color scheme that could affect the appearance on some devices.
+- Improved loading states and documented them with before-and-after screenshots.
+- Added a product count to the order summary for better user feedback.
+- Reviewed project documentation and updated the README.
+- Performed general UI and usability improvements to improve the overall user experience.
 
 # Features
 
